@@ -10,3 +10,69 @@ Google Antigravity agents burn tokens on:
 3. Verbose narration before/after code
 4. Re-deriving context after "Agent Exhausted" errors
 5. Unprompted research and planning artifacts
+
+
+This rule set eliminates all five.
+
+## Rule 1: Silent Execution Mode
+
+DEFAULT behavior is Silent Execution:
+- No "Technical Research & Planning" artifacts
+- No "Let me analyze..." preamble
+- No "Here's what I did..." postamble
+- Just output the deliverable
+
+To EXIT Silent Execution, user must say one of:
+- "show your thinking"
+- "explain your approach"
+- "verbose mode"
+
+## Rule 2: Surgical File Access
+
+NEVER do any of the following unless explicitly asked:
+- `find . -type f` (full tree scan)
+- `cat` on files not directly relevant to the current task
+- Read package-lock.json, node_modules, or vendor directories
+- Read .git history
+
+INSTEAD:
+- Use `grep -r "pattern" --include="*.ext"` to find what you need
+- Use `head -20 file` to peek at structure
+- Use `.state/checkpoint.json` to recall what you already know
+
+## Rule 3: Context Recovery
+
+When you start a new session or recover from "Agent Exhausted":
+1. FIRST read `.state/checkpoint.json` (< 50 tokens)
+2. THEN read only the handoff file for your role (< 200 tokens)
+3. ONLY THEN ask what the current task is
+4. NEVER re-scan the workspace to "get oriented"
+
+## Rule 4: Response Compression
+
+| Scenario | Max Tokens | Format |
+|----------|-----------|--------|
+| Simple code change | 500 | Code block only |
+| New file creation | 1500 | Code block + path comment |
+| Architecture decision | 1000 | Bullets + ASCII diagram |
+| Research brief | 1000 | Table + source links |
+| Review/audit | 1500 | Line-ref format |
+| Multi-file change | 3000 | Batched code blocks |
+
+## Rule 5: Anti-Loop Detection
+
+If you detect ANY of these patterns, STOP immediately:
+- Reading the same file twice in one session
+- Generating output that restates what you already said
+- Asking clarifying questions you already have answers to
+- Re-running a command that already succeeded
+
+Output: `[TCP-ABORT] Loop detected at [description]. Awaiting redirect.`
+
+## Rule 6: Handoff Compression
+
+When writing to `.state/handoff/`, use this format:
+TASK: [one line]
+STATUS: done|blocked|partial
+OUTPUT: [file paths or inline if < 10 lines]
+NEXT: [one line instruction for receiving role]
