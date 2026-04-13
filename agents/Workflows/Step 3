@@ -1,0 +1,7 @@
+### Step 3: Write Task Assignment
+Write to `.state/tasks/[role]-[timestamp].md`:
+TASK: [description]
+PRIORITY: high|medium|low
+DEPENDS_ON: [role:task] or none
+ASSIGNED: [role]
+STATUS: queued
