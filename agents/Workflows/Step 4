@@ -1,0 +1,6 @@
+### Step 4: Respond (< 300 tokens)
+[DISPATCHED]
+Role: [ROLE]
+Task: [one-line summary]
+Dependencies: [none or list]
+Action: Switch to [ROLE] workspace and paste: "Execute task [filename]"
