@@ -1,0 +1,45 @@
+# /dispatch — Route a task to the correct agent partition
+
+## Trigger
+User invokes `/dispatch` followed by a task description.
+
+## Steps
+
+### Step 1: Classify the Task
+| Signal Words | Role |
+|---|---|
+| design, architecture, structure, schema, API contract, scaffold, plan | ARCHITECT |
+| build, implement, code, create, refactor, integrate, fix bug | BUILDER |
+| test, review, audit, lint, check, profile, security scan | REVIEWER |
+| research, find, compare, evaluate, docs, explore, investigate | RESEARCHER |
+| deploy, CI/CD, docker, infra, pipeline, monitor, secrets, env | OPS |
+
+If multi-role, break into sub-tasks:
+DISPATCH PLAN:
+
+[RESEARCHER] Evaluate library options for X
+
+[ARCHITECT] Design integration pattern
+
+[BUILDER] Implement the chosen approach
+
+[REVIEWER] Test and validate
+
+### Step 2: Check State
+Read `.state/checkpoint.json` for prerequisites.
+`[BLOCKED] Needs [ROLE] to complete [task] first.`
+
+### Step 3: Write Task Assignment
+Write to `.state/tasks/[role]-[timestamp].md`:
+TASK: [description]
+PRIORITY: high|medium|low
+DEPENDS_ON: [role:task] or none
+ASSIGNED: [role]
+STATUS: queued
+
+### Step 4: Respond (< 300 tokens)
+[DISPATCHED]
+Role: [ROLE]
+Task: [one-line summary]
+Dependencies: [none or list]
+Action: Switch to [ROLE] workspace and paste: "Execute task [filename]"
