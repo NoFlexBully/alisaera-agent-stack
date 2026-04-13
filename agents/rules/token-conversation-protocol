@@ -1,0 +1,12 @@
+# Token Conservation Protocol (TCP) — Detailed Rules
+
+activation: always_on
+
+## Why This Exists
+
+Google Antigravity agents burn tokens on:
+1. Redundant "Thinking" + "Planning" artifacts duplicated across surfaces
+2. Full workspace tree scans on every prompt
+3. Verbose narration before/after code
+4. Re-deriving context after "Agent Exhausted" errors
+5. Unprompted research and planning artifacts
