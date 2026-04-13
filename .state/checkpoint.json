@@ -1,0 +1,7 @@
+{
+  "architect": { "status": "idle", "last_task": null, "timestamp": null },
+  "builder": { "status": "idle", "last_task": null, "files_touched": [], "timestamp": null },
+  "reviewer": { "status": "idle", "last_task": null, "verdict": null, "timestamp": null },
+  "researcher": { "status": "idle", "last_task": null, "sources": [], "confidence": null, "timestamp": null },
+  "ops": { "status": "idle", "last_task": null, "environment": null, "timestamp": null }
+}
